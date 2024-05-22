@@ -97,6 +97,8 @@ namespace ChuckItApi
             services.AddAWSService<IAmazonS3>();
             services.AddSingleton<IS3Service, S3Service>();
 
+            services.AddScoped<IUserService, UserService>();
+
             services.AddControllers();
         }
 
