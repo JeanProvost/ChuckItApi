@@ -1,5 +1,6 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Transfer;
+using ChuckItApi.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;

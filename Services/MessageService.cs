@@ -1,4 +1,4 @@
-﻿]using ChuckItApi.Data;
+﻿using ChuckItApi.Data;
 
 namespace ChuckItApi.Services
 {

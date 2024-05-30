@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ChuckItApi.Models;
 
-namespace ChuckItApi.Services
+namespace ChuckItApi.Services.Interfaces
 {
     public interface IUserService
     {

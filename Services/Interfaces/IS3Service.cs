@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace ChuckItApi.Services
+namespace ChuckItApi.Services.Interfaces
 {
     public interface IS3Service
     {

@@ -28,6 +28,7 @@ namespace ChuckItApi.Models
 
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
+        public ICollection<Image> Images { get; set; } = new List<Image>();
     }
     public class Category
     {
