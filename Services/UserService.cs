@@ -7,6 +7,7 @@ using ChuckItApi.Data;
 using ChuckItApi.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection.Metadata.Ecma335;
+using ChuckItApi.Services.Interfaces;
 
 namespace ChuckItApi.Services
 {

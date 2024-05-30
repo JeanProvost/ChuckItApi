@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChuckItApi.Models
+namespace ChuckItApi.Models.DTOs
 {
     public class MessageDto
     {

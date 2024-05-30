@@ -14,7 +14,7 @@ using ChuckItApi.Models;
 using ChuckItApi.Services;
 using dotenv.net;
 using System;
-using System.Reflection;
+using ChuckItApi.Services.Interfaces;
 
 namespace ChuckItApi
 {
@@ -46,7 +46,8 @@ namespace ChuckItApi
                 throw new ArgumentNullException("Database environment variables are not set correctly.");
             }
 
-            var connectionString = $"Host={dbHost};Database={dbName};Username={dbUser};Password={dbPassword};Port={dbPort}";
+            var connectionString = $"Host={dbHost};Database={dbName};Port={dbPort};Username={dbUser};Password={dbPassword}";
+            Console.WriteLine($"Connection string: {connectionString}");
 
             // Use the connection string in DbContext
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -81,6 +82,8 @@ namespace ChuckItApi
                 };
             });
 
+            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -96,7 +99,7 @@ namespace ChuckItApi
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
             services.AddSingleton<IS3Service, S3Service>();
-
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddControllers();
@@ -111,7 +114,7 @@ namespace ChuckItApi
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "ChuckItAPI V1");
-                    c.RoutePrefix = string.Empty; //Set Swagger UI at the app's root
+                    //c.RoutePrefix = string.Empty; //Set Swagger UI at the app's root
                 });
             }
             else
