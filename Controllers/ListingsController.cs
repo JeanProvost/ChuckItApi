@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ChuckItApi.Models.DTOs;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using ChuckItApi.Services.Interfaces;
 
 namespace ChuckItApi.Controllers
