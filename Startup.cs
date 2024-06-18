@@ -46,12 +46,14 @@ namespace ChuckItApi
                 throw new ArgumentNullException("Database environment variables are not set correctly.");
             }
 
-            var connectionString = $"Host={dbHost};Database={dbName};Port={dbPort};Username={dbUser};Password={dbPassword}";
+            var connectionString = $"Host={dbHost}; Port={dbPort}; Userid={dbUser}; Password={dbPassword}; Database={dbName}";
             Console.WriteLine($"Connection string: {connectionString}");
 
             // Use the connection string in DbContext
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(connectionString));
+                options.UseNpgsql(connectionString)
+                    .EnableDetailedErrors()
+                    .EnableSensitiveDataLogging());
 
             // Configure Identity
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -81,8 +83,6 @@ namespace ChuckItApi
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
-
-            
 
             services.AddSwaggerGen(c =>
             {
