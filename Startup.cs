@@ -38,6 +38,7 @@ namespace ChuckItApi
             var dbUser = Environment.GetEnvironmentVariable("DB_USERNAME");
             var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
             var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
+            var jwtKey = Environment.GetEnvironmentVariable("JwtKey");
 
             if (string.IsNullOrEmpty(dbHost) || string.IsNullOrEmpty(dbName) ||
                 string.IsNullOrEmpty(dbUser) || string.IsNullOrEmpty(dbPassword) ||
@@ -47,7 +48,6 @@ namespace ChuckItApi
             }
 
             var connectionString = $"Host={dbHost}; Port={dbPort}; Userid={dbUser}; Password={dbPassword}; Database={dbName}";
-            Console.WriteLine($"Connection string: {connectionString}");
 
             // Use the connection string in DbContext
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -63,6 +63,11 @@ namespace ChuckItApi
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddSignInManager<SignInManager<ApplicationUser>>()
             .AddDefaultTokenProviders();
+
+            if (string.IsNullOrEmpty(jwtKey))
+            {
+                throw new ArgumentException("JWT variables are not set correctly");
+            }
 
             // Authentication
             services.AddAuthentication(options =>
@@ -80,7 +85,7 @@ namespace ChuckItApi
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],
                     ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
                 };
             });
 
