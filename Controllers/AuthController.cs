@@ -34,7 +34,7 @@ namespace ChuckItApi.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
-            var token = await _authService.LoginUserAsync(loginDto);
+            var token = await _authService.LoginUserAsync(loginDto); //Token returning null
 
             if(token == null)
             {
