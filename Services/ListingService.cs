@@ -29,7 +29,7 @@ namespace ChuckItApi.Services
                 .Include(l => l.Images)
                 .ToListAsync();
 
-            return listings.Select(l => new ListingDto
+            return listings.Select((Func<Listing, ListingDto>)(l => new ListingDto
             {
                 Id = l.Id,
                 Title = l.Title,
@@ -44,7 +44,7 @@ namespace ChuckItApi.Services
                 } : null,
                 ImageFileNames = l.Images.Select(img => img.FileName).ToList(),
                 UserName = l.User.UserName
-            });
+            }));
         }
 
         public async Task<ListingDto> GetListingByIdAsync(Guid id)

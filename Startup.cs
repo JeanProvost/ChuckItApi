@@ -15,6 +15,7 @@ using ChuckItApi.Services;
 using dotenv.net;
 using System;
 using ChuckItApi.Services.Interfaces;
+using ChuckItApi.Data.Seeds;
 
 namespace ChuckItApi
 {
@@ -56,7 +57,7 @@ namespace ChuckItApi
                     .EnableSensitiveDataLogging());
 
             // Configure Identity
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
             })
@@ -68,6 +69,7 @@ namespace ChuckItApi
             {
                 throw new ArgumentException("JWT variables are not set correctly");
             }
+
 
             // Authentication
             services.AddAuthentication(options =>
@@ -104,13 +106,15 @@ namespace ChuckItApi
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
             services.AddSingleton<IS3Service, S3Service>();
+
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IMessageService, MessageService>();
 
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -138,6 +142,8 @@ namespace ChuckItApi
             {
                 endpoints.MapControllers();
             });
+
+            DataSeeder.Seed(serviceProvider);
         }
     }
 }
