@@ -44,7 +44,7 @@ namespace ChuckItApi.Migrations
                 name: "Categories",
                 newName: "Category");
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "UserId",
                 table: "Listings",
                 type: "text",

@@ -22,7 +22,7 @@ namespace ChuckItApi.Services
             _userManager = userManager;
         }
 
-        public async Task<ApplicationUser> GetUserByIdAsync(string userId)
+        public async Task<ApplicationUser> GetUserByIdAsync(Guid userId)
         {
             return await _context.Users.FindAsync(userId);
         }
@@ -50,7 +50,7 @@ namespace ChuckItApi.Services
             return existingUser;
         }
 
-        public async Task<bool> DeleteUser(string userId)
+        public async Task<bool> DeleteUser(Guid userId)
         {
             var user = await _context.Users.FindAsync(userId);
             if(user == null)

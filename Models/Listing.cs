@@ -26,16 +26,18 @@ namespace ChuckItApi.Models
         public Category Category { get; set; }
         public Location Location { get; set; }
 
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
+
+        [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
         public ICollection<Image> Images { get; set; } = new List<Image>();
     }
-    public class Category
+    /* public class Category
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public ICollection<Listing> Listings { get; set; }
-    }
+    } */
 
     public class Location
     {

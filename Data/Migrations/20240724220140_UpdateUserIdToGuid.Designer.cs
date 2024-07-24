@@ -3,6 +3,7 @@ using System;
 using ChuckItApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChuckItApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240724220140_UpdateUserIdToGuid")]
+    partial class UpdateUserIdToGuid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,17 +103,7 @@ namespace ChuckItApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BackgroundColor")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Color")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -371,7 +363,7 @@ namespace ChuckItApi.Migrations
             modelBuilder.Entity("ChuckItApi.Models.Listing", b =>
                 {
                     b.HasOne("ChuckItApi.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Listings")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -464,6 +456,11 @@ namespace ChuckItApi.Migrations
                 });
 
             modelBuilder.Entity("ChuckItApi.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Listings");
+                });
+
+            modelBuilder.Entity("ChuckItApi.Models.Category", b =>
                 {
                     b.Navigation("Listings");
                 });
