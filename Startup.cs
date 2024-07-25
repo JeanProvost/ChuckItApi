@@ -33,7 +33,6 @@ namespace ChuckItApi
             // Load the .env file
             DotEnv.Load();
 
-            // Manually build the connection string from environment variables
             var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
             var dbName = Environment.GetEnvironmentVariable("DB_DATABASE");
             var dbUser = Environment.GetEnvironmentVariable("DB_USERNAME");
@@ -144,6 +143,7 @@ namespace ChuckItApi
             });
 
             DataSeeder.Seed(serviceProvider);
+
         }
     }
 }
