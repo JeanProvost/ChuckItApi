@@ -55,6 +55,7 @@ namespace ChuckItApi
                     .EnableDetailedErrors()
                     .EnableSensitiveDataLogging());
 
+
             // Configure Identity
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
             {
@@ -109,8 +110,10 @@ namespace ChuckItApi
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IListingService, ListingService>();
 
             services.AddControllers();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
@@ -142,8 +145,19 @@ namespace ChuckItApi
                 endpoints.MapControllers();
             });
 
+            ApplyMigrations(serviceProvider);
+
             DataSeeder.Seed(serviceProvider);
 
+        }
+
+        private void ApplyMigrations(IServiceProvider serviceProvider)
+        {
+            using(var scope = serviceProvider.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
+            }
         }
     }
 }
