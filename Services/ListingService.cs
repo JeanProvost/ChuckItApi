@@ -6,12 +6,13 @@ using Amazon.S3.Model;
 using ChuckItApi.Data;
 using ChuckItApi.Models;
 using ChuckItApi.Models.DTOs;
+using ChuckItApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ChuckItApi.Services
 {
-    public class ListingService
+    public class ListingService : IListingService
     {
         private readonly ApplicationDbContext _context;
 
