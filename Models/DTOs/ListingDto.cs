@@ -21,7 +21,8 @@ namespace ChuckItApi.Models.DTOs
         [Required]
         public int CategoryId { get; set; }
 
-        public string CategoryName { get; set; } // Adding this for convenience
+        public Category Category { get; set; }
+        public string CategoryName { get; set; }
 
         public LocationDto Location { get; set; }
 
