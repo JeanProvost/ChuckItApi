@@ -17,8 +17,8 @@ namespace ChuckItApi.Models
         public string Message { get; set; }
 
         public DateTime datetime { get; set; }
-        public Guid FromUserId { get; set; }
-        public Guid ToUserId { get; set; }
+        public string FromUserId { get; set; }
+        public string ToUserId { get; set; }
         public ApplicationUser FromUser { get; set; }
         public ApplicationUser ToUser { get; set; }
 
