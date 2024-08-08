@@ -30,7 +30,7 @@ namespace ChuckItApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMessages()
         {
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var messages = await _messageService.GetMessagesForUser(userId);
 
             var resources = messages.Select(message => new
@@ -48,7 +48,7 @@ namespace ChuckItApi.Controllers
 
         public async Task<IActionResult> SendMessage([FromBody] MessageDto messageDto)
         {
-            var UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var listing = await _listingService.GetListingByIdAsync(messageDto.ListingId);
             if (listing == null) return BadRequest(new { error = "Invalid userId" });
 
