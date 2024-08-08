@@ -7,7 +7,7 @@ using ChuckItApi.Data.Seeds;
 
 namespace ChuckItApi.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -32,10 +32,6 @@ namespace ChuckItApi.Data
                 .HasMany(l => l.Images)
                 .WithOne(i => i.Listing)
                 .HasForeignKey(i => i.ListingId);
-
-            //DataSeeder.SeedCategories(migrationBuilder);
-            
-              
         }
     }
 }
