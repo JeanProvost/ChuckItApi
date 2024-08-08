@@ -28,7 +28,7 @@ namespace ChuckItApi.Data.Seeds
                         Images = new Image[] { new Image { FileName = "jacket1" } },
                         Price = 100,
                         CategoryId = 5,
-                        UserId = Guid.Parse("71fa4b95-079d-42b1-a2cb-dd26028aed9d"),
+                        UserId = "71fa4b95-079d-42b1-a2cb-dd26028aed9d",
                         Location = new Location
                         {
                             Latitude = 37.78825,
@@ -42,7 +42,7 @@ namespace ChuckItApi.Data.Seeds
                         Images = new Image[] { new Image { FileName = "couch2" } },
                         CategoryId = 1,
                         Price = 1200,
-                        UserId = Guid.Parse("90cf5e6f-9725-4449-bfec-cf688da1eec4"),
+                        UserId = "90cf5e6f-9725-4449-bfec-cf688da1eec4",
                         Location = new Location
                         {
                             Latitude = 37.78825,
@@ -62,7 +62,7 @@ namespace ChuckItApi.Data.Seeds
                         },
                         Price = 1000,
                         CategoryId = 1,
-                        UserId = Guid.Parse("90cf5e6f-9725-4449-bfec-cf688da1eec4"),
+                        UserId = "90cf5e6f-9725-4449-bfec-cf688da1eec4",
                         Location = new Location
                         {
                             Latitude = 37.78825,
@@ -77,7 +77,7 @@ namespace ChuckItApi.Data.Seeds
                         Images = new Image[] { new Image { FileName = "shoes1" } },
                         Price = 100,
                         CategoryId = 5,
-                        UserId = Guid.Parse("90cf5e6f-9725-4449-bfec-cf688da1eec4"),
+                        UserId = "90cf5e6f-9725-4449-bfec-cf688da1eec4",
                         Location = new Location
                         {
                             Latitude = 37.78825,
@@ -92,7 +92,7 @@ namespace ChuckItApi.Data.Seeds
                         Images = new Image[] { new Image { FileName = "camera1" } },
                         Price = 300,
                         CategoryId = 3,
-                        UserId = Guid.Parse("90cf5e6f-9725-4449-bfec-cf688da1eec4"),
+                        UserId = "90cf5e6f-9725-4449-bfec-cf688da1eec4",
                         Location = new Location
                         {
                             Latitude = 37.78825,
@@ -107,7 +107,7 @@ namespace ChuckItApi.Data.Seeds
                         Images = new Image[] { new Image { FileName = "camera2" } },
                         Price = 250,
                         CategoryId = 3,
-                        UserId = Guid.Parse("90cf5e6f-9725-4449-bfec-cf688da1eec4"),
+                        UserId = "90cf5e6f-9725-4449-bfec-cf688da1eec4",
                         Location = new Location
                         {
                             Latitude = 37.78825,
@@ -122,7 +122,7 @@ namespace ChuckItApi.Data.Seeds
                         Images = new Image[] { new Image { FileName = "couch3" } },
                         Price = 250,
                         CategoryId = 1,
-                        UserId = Guid.Parse("90cf5e6f-9725-4449-bfec-cf688da1eec4"),
+                        UserId = "90cf5e6f-9725-4449-bfec-cf688da1eec4",
                         Location = new Location
                         {
                             Latitude = 37.78825,
@@ -137,7 +137,7 @@ namespace ChuckItApi.Data.Seeds
                         Images = new Image[] { new Image { FileName = "shoes2" } },
                         Price = 250,
                         CategoryId = 5,
-                        UserId = Guid.Parse("90cf5e6f-9725-4449-bfec-cf688da1eec4"),
+                        UserId = "90cf5e6f-9725-4449-bfec-cf688da1eec4",
                         Location = new Location
                         {
                             Latitude = 37.78825,
