@@ -52,6 +52,7 @@ namespace ChuckItApi.Models
         public int Id { get; set; }
         public string FileName { get; set; }
         public Guid ListingId { get; set; }
+        [ForeignKey("ListingsId")]
         public Listing Listing { get; set; }
     }
 

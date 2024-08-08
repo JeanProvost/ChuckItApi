@@ -10,10 +10,9 @@ namespace ChuckItApi.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        { 
-            
+        {
+            Database.SetCommandTimeout(150000);
         }
-
         public DbSet<Image> Images { get; set; }
         public DbSet<Location> Location { get; set; }
         public DbSet<Listing> Listings { get; set; }
@@ -28,6 +27,11 @@ namespace ChuckItApi.Data
                 .HasMany(u => u.Listings)
                 .WithOne(l => l.User)
                 .HasForeignKey(l => l.UserId);
+
+            modelBuilder.Entity<Listing>()
+                .HasMany(l => l.Images)
+                .WithOne(i => i.Listing)
+                .HasForeignKey(i => i.ListingId);
 
             //DataSeeder.SeedCategories(migrationBuilder);
             
