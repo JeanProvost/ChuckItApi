@@ -28,9 +28,9 @@ namespace ChuckItApi.Models.DTOs
 
         public List<string> ImageFileNames { get; set; } = new List<string>();
 
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
-        public string UserName { get; set; } // Adding this for convenience
+        public string UserName { get; set; }
     }
 
     public class LocationDto

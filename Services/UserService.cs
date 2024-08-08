@@ -22,7 +22,7 @@ namespace ChuckItApi.Services
             _userManager = userManager;
         }
 
-        public async Task<ApplicationUser> GetUserByIdAsync(Guid userId)
+        public async Task<ApplicationUser> GetUserByIdAsync(string userId)
         {
             return await _context.Users.FindAsync(userId);
         }

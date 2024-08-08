@@ -93,7 +93,7 @@ namespace ChuckItApi.Services
                 Description = listingDto.Description,
                 CategoryId = listingDto.CategoryId,
                 Price = listingDto.Price,
-                Images = listingDto.ImageFileNames.Select(fileName => new Image { FileName = fileName }).ToList(),
+                Images = new List<Image>(),
             };
 
             if(listingDto.Location != null)
@@ -105,10 +105,21 @@ namespace ChuckItApi.Services
                 };
             }
 
+            foreach (var imageFileName in listingDto.ImageFileNames)
+            {
+                using (var imageStream = GetImageStream(imageFileName))
+                {
+                    var s3Url = await UploadImageToS3Async(imageStream, imageFileName);
+                    listing.Images.Add(new Image { FileName = s3Url });
+                }
+            }
+
             _context.Listings.Add(listing);
             await _context.SaveChangesAsync();
 
             listingDto.Id = listing.Id;
+            listingDto.ImageFileNames = listing.Images.Select(img => img.FileName).ToList();
+
             return listingDto;
         }
 
@@ -177,6 +188,13 @@ namespace ChuckItApi.Services
             string s3Url = $"https://{uploadRequest.BucketName}.s3.amazonaws.com/{fileName}";
 
             return s3Url;
+        }
+
+        private Stream GetImageStream(string base64Image)
+        {
+            byte[] imageBytes = Convert.FromBase64String(base64Image);
+
+            return new MemoryStream(imageBytes);
         }
     }
 }

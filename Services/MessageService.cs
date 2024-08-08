@@ -18,7 +18,7 @@ namespace ChuckItApi.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Messages>> GetMessagesForUser(Guid userId)
+        public async Task<IEnumerable<Messages>> GetMessagesForUser(string userId)
         {
             return await _context.Messages
                 .Include(m => m.FromUser)

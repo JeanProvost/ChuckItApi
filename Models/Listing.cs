@@ -26,7 +26,7 @@ namespace ChuckItApi.Models
         public Category Category { get; set; }
         public Location Location { get; set; }
 
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
@@ -52,7 +52,7 @@ namespace ChuckItApi.Models
         public int Id { get; set; }
         public string FileName { get; set; }
         public Guid ListingId { get; set; }
-        [ForeignKey("ListingsId")]
+        [ForeignKey("ListingId")]
         public Listing Listing { get; set; }
     }
 

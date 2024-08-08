@@ -8,7 +8,7 @@ namespace ChuckItApi.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<ApplicationUser> GetUserByIdAsync(Guid userId);
+        Task<ApplicationUser> GetUserByIdAsync(string userId);
         Task<IEnumerable<ApplicationUser>> GetAllUsersAsync();
         Task<ApplicationUser> UpdateUserAsync(ApplicationUser user);
         Task<bool> DeleteUser(Guid userId);
