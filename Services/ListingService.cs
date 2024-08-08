@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Amazon.S3.Model;
+using Amazon.S3;
+using Amazon.S3.Transfer;
 using ChuckItApi.Data;
 using ChuckItApi.Models;
 using ChuckItApi.Models.DTOs;
@@ -15,10 +17,14 @@ namespace ChuckItApi.Services
     public class ListingService : IListingService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IAmazonS3 _s3CLient;
+        private readonly string _bucketName;
 
-        public ListingService(ApplicationDbContext context)
+        public ListingService(ApplicationDbContext context, IAmazonS3 s3CLient)
         {
             _context = context;
+            _s3CLient = s3CLient;
+            _bucketName = Environment.GetEnvironmentVariable("S3_BUCKET_NAME");
         }
 
         public async Task<IEnumerable<ListingDto>> GetAllListingsAsync()
@@ -152,6 +158,25 @@ namespace ChuckItApi.Services
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<string> UploadImageToS3Async(Stream imageStream, string fileName)
+        {
+            var fileTransferUtility = new TransferUtility(_s3CLient);
+
+            var uploadRequest = new TransferUtilityUploadRequest
+            {
+                InputStream = imageStream,
+                Key = fileName,
+                BucketName = _bucketName,
+                CannedACL = S3CannedACL.PublicRead
+            };
+
+            await fileTransferUtility.UploadAsync(uploadRequest);
+
+            string s3Url = $"https://{uploadRequest.BucketName}.s3.amazonaws.com/{fileName}";
+
+            return s3Url;
         }
     }
 }
