@@ -57,7 +57,7 @@ namespace ChuckItApi
 
 
             // Configure Identity
-            services.AddIdentity<ApplicationUser, IdentityRole<string>>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
             })
