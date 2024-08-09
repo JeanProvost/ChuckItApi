@@ -46,6 +46,7 @@ namespace ChuckItApi.Controllers
             return Ok(resources);
         }
 
+        [HttpPost]
         public async Task<IActionResult> SendMessage([FromBody] MessageDto messageDto)
         {
             var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
