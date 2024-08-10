@@ -105,11 +105,24 @@ namespace ChuckItApi.Services
                 };
             }
 
-            foreach (var imageFileName in listingDto.ImageFileNames)
+            /* foreach (var imageFileName in listingDto.ImageFileNames)
             {
                 using (var imageStream = GetImageStream(imageFileName))
                 {
                     var s3Url = await UploadImageToS3Async(imageStream, imageFileName);
+                    listing.Images.Add(new Image { FileName = s3Url });
+                }
+            } */
+
+            foreach(var base64Image in listingDto.ImageFileNames)
+            {
+                
+                string fileExtension = GetImageExtension(base64Image);
+                var fileName = $"{Guid.NewGuid()}.{fileExtension}";
+
+                using (var imageStream = GetImageStream(base64Image))
+                {
+                    var s3Url = await UploadImageToS3Async(imageStream, fileName);
                     listing.Images.Add(new Image { FileName = s3Url });
                 }
             }
@@ -195,6 +208,17 @@ namespace ChuckItApi.Services
             byte[] imageBytes = Convert.FromBase64String(base64Image);
 
             return new MemoryStream(imageBytes);
+        }
+
+        private string GetImageExtension(string base64Image)
+        {
+            //Checks the first few characters of the base64 string to determine the file type
+            if (base64Image.StartsWith("iVBORw0KGgo")) return "png"; // PNG
+            if (base64Image.StartsWith("/9j/")) return "jpg"; // JPEG
+            if (base64Image.StartsWith("R0lGODdh") || base64Image.StartsWith("R0lGODlh")) return "gif"; // GIF
+            if (base64Image.StartsWith("UklGR")) return "webp"; // WEBP
+
+            return "jpg";
         }
     }
 }
