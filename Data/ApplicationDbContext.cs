@@ -32,6 +32,10 @@ namespace ChuckItApi.Data
                 .HasMany(l => l.Images)
                 .WithOne(i => i.Listing)
                 .HasForeignKey(i => i.ListingId);
+
+            modelBuilder.Entity<Location>()
+                .Property(l => l.LocationId)
+                .ValueGeneratedOnAdd();
         }
     }
 }
